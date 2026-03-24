@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 行业周报 · {{ data.week_range }}</title>
+<title>晨脉 AI×Radar · 周报 · {{ data.week_range }}</title>
 <style>
 :root {
   --cn: #c53030; --us: #2b6cb0; --fashion: #6b46c1;
@@ -107,11 +107,11 @@ body {
 
   <div class="header">
     <div class="header-meta">
-      <span class="badge">AI 行业周报</span>
-      <span class="badge">自动汇总</span>
+      <span class="badge">晨脉 CHENMAI</span>
+      <span class="badge">AI × Radar</span>
       <span class="badge">每周五发布</span>
     </div>
-    <h1>本周 AI 行业精选</h1>
+    <h1>晨脉 · 本周 AI 精选</h1>
     <div class="range">{{ data.week_range }}</div>
     <div class="stats">
       <div class="stat">
@@ -194,8 +194,8 @@ body {
   </div>
 
   <div class="footer">
-    本周报由 Claude + Tavily 自动生成 ·
-    {% if github_url %}<a href="{{ github_url }}">订阅往期</a> · {% endif %}
+    晨脉 AI×Radar · 周报由 Claude + Tavily 自动生成 ·
+    {% if github_url %}<a href="{{ github_url }}">往期归档</a> · {% endif %}
     每周五自动发布 · 仅供参考
   </div>
 
