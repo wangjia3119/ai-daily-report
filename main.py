@@ -34,7 +34,7 @@ def run_daily():
     from render_html  import render_daily_main, render_daily_fashion, render_index
     from cache        import save_today, get_report_list
     from notify       import notify_daily
-    from git_push     import git_push
+    from git_push     import push_docs
 
     today = datetime.now().strftime("%Y-%m-%d")
     logger.info(f"=== 开始生成日报 {today} ===")
@@ -60,7 +60,7 @@ def run_daily():
 
     # 5. 推送 & 通知
     logger.info("步骤 5/5：推送到 GitHub & 微信通知...")
-    git_push(f"auto: 日报 {today}")
+    push_docs(f"auto: 日报 {today}")
     notify_daily(
         today,
         cn_count      = len(main_data.get("china_news", [])),
@@ -77,7 +77,7 @@ def run_weekly():
     from render_html  import render_weekly, render_index
     from cache        import get_this_week, get_report_list
     from notify       import notify_weekly
-    from git_push     import git_push
+    from git_push     import push_docs
 
     today = datetime.now().strftime("%Y-%m-%d")
     logger.info(f"=== 开始生成周报 {today} ===")
@@ -100,7 +100,7 @@ def run_weekly():
     logger.info("步骤 3/3：渲染周报 & 推送...")
     render_weekly(weekly_data)
     render_index(get_report_list())
-    git_push(f"auto: 周报 {today}")
+    push_docs(f"auto: 周报 {today}")
     total = (
         len(weekly_data.get("china_news", []))
         + len(weekly_data.get("us_news", []))
