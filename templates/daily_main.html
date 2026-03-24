@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI行业日报 · {{ data.date }}</title>
+<style>
+:root {
+  --cn: #e53e3e;
+  --us: #2b6cb0;
+  --accent: #553c9a;
+  --bg: #f7f8fc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #2d3748;
+  --muted: #718096;
+  --tag-bg: #edf2ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  padding: 24px 16px 48px;
+}
+.wrapper { max-width: 780px; margin: 0 auto; }
+
+/* ── 顶部 header ── */
+.header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+  border-radius: 16px;
+  padding: 32px 36px 28px;
+  margin-bottom: 28px;
+  color: white;
+}
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.header .date {
+  font-size: 14px;
+  opacity: 0.7;
+}
+.header .desc {
+  font-size: 13px;
+  opacity: 0.55;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 10px;
+}
+
+/* ── 板块 ── */
+.section { margin-bottom: 28px; }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: 12px 12px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.section-header.cn { background: #fff5f5; border-bottom: 3px solid var(--cn); color: var(--cn); }
+.section-header.us { background: #ebf8ff; border-bottom: 3px solid var(--us); color: var(--us); }
+.section-header .flag { font-size: 20px; }
+.section-header .count {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.news-list { background: var(--card); border-radius: 0 0 12px 12px; border: 1px solid var(--border); border-top: none; overflow: hidden; }
+
+.news-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.news-item:last-child { border-bottom: none; }
+.news-item:hover { background: #fafbff; }
+
+.news-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.news-title::before {
+  content: attr(data-index) ". ";
+  font-weight: 700;
+  color: var(--muted);
+  margin-right: 2px;
+}
+.news-summary {
+  font-size: 14px;
+  color: #4a5568;
+  line-height: 1.75;
+  margin-bottom: 6px;
+}
+.news-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.source-tag {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--tag-bg);
+  border-radius: 4px;
+  padding: 1px 8px;
+}
+
+/* ── footer ── */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.footer a { color: var(--us); text-decoration: none; }
+
+@media (max-width: 600px) {
+  .header { padding: 22px 20px 18px; }
+  .header h1 { font-size: 20px; }
+  .news-item { padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <div class="header-meta">
+      <span class="badge">AI 行业日报</span>
+      <span class="badge">每日速览</span>
+    </div>
+    <h1>中美 AI 行业热点</h1>
+    <div class="date">{{ data.date }} · 今日精选 {{ data.china_news|length + data.us_news|length }} 条</div>
+    <div class="desc">覆盖中国 & 美国 AI 行业最新动态，每日自动生成</div>
+  </div>
+
+  <!-- 中国 AI -->
+  <div class="section">
+    <div class="section-header cn">
+      <span class="flag">🇨🇳</span>
+      中国 AI 热点
+      <span class="count">{{ data.china_news|length }} 条</span>
+    </div>
+    <div class="news-list">
+      {% for item in data.china_news %}
+      <div class="news-item">
+        <div class="news-title" data-index="{{ loop.index }}">{{ item.title }}</div>
+        <div class="news-summary">{{ item.summary }}</div>
+        <div class="news-footer">
+          <span class="source-tag">{{ item.source }}</span>
+        </div>
+      </div>
+      {% else %}
+      <div class="news-item"><div class="news-summary" style="color:#999">暂无数据</div></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 美国 AI -->
+  <div class="section">
+    <div class="section-header us">
+      <span class="flag">🇺🇸</span>
+      美国 AI 热点
+      <span class="count">{{ data.us_news|length }} 条</span>
+    </div>
+    <div class="news-list">
+      {% for item in data.us_news %}
+      <div class="news-item">
+        <div class="news-title" data-index="{{ loop.index }}">{{ item.title }}</div>
+        <div class="news-summary">{{ item.summary }}</div>
+        <div class="news-footer">
+          <span class="source-tag">{{ item.source }}</span>
+        </div>
+      </div>
+      {% else %}
+      <div class="news-item"><div class="news-summary" style="color:#999">暂无数据</div></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="footer">
+    AI 日报由 Claude + Tavily 自动生成 ·
+    {% if github_url %}<a href="{{ github_url }}">查看往期日报</a> · {% endif %}
+    仅供参考，请以原始报道为准
+  </div>
+
+</div>
+</body>
+</html>
