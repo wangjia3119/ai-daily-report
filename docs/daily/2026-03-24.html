@@ -33,12 +33,30 @@ body {
   padding: 32px 36px 28px;
   margin-bottom: 28px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
+.header-left { flex: 1; min-width: 0; }
+.header-logo {
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
+  opacity: 0.92;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.header-logo svg { width: 90px; height: 90px; display: block; }
 .header-meta {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 12px;
+}
+@media (max-width: 600px) {
+  .header-logo { width: 68px; height: 68px; }
+  .header-logo svg { width: 68px; height: 68px; }
 }
 .badge {
   background: rgba(255,255,255,0.15);
@@ -153,13 +171,71 @@ body {
 <div class="wrapper">
 
   <div class="header">
-    <div class="header-meta">
-      <span class="badge">晨脉 CHENMAI</span>
-      <span class="badge">AI × Radar</span>
+    <div class="header-left">
+      <div class="header-meta">
+        <span class="badge">晨脉 CHENMAI</span>
+        <span class="badge">AI × Radar</span>
+      </div>
+      <h1>今日 AI 日报</h1>
+      <div class="date">2026年03月24日 · 精选 8 条</div>
+      <div class="desc">中美 AI 行业每日情报 · 由 AI×Radar 自动生成</div>
     </div>
-    <h1>今日 AI 日报</h1>
-    <div class="date">2026年03月24日 · 精选 8 条</div>
-    <div class="desc">中美 AI 行业每日情报 · 由 AI×Radar 自动生成</div>
+    <div class="header-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0a0f1e"/><stop offset="100%" stop-color="#0f1f3d"/>
+          </linearGradient>
+          <radialGradient id="radarGlow2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="pulseGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0"/>
+            <stop offset="35%" stop-color="#00d4ff"/>
+            <stop offset="65%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="scanGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.85"/>
+          </linearGradient>
+          <filter id="glow2">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softGlow2">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <clipPath id="circleClip2"><circle cx="100" cy="95" r="72"/></clipPath>
+        </defs>
+        <rect width="200" height="200" rx="20" fill="url(#bg2)"/>
+        <circle cx="100" cy="95" r="72" fill="url(#radarGlow2)"/>
+        <circle cx="100" cy="95" r="68" fill="none" stroke="#00d4ff" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="100" cy="95" r="52" fill="none" stroke="#00d4ff" stroke-width="0.6" stroke-opacity="0.3"/>
+        <circle cx="100" cy="95" r="36" fill="none" stroke="#00d4ff" stroke-width="0.7" stroke-opacity="0.45"/>
+        <circle cx="100" cy="95" r="20" fill="none" stroke="#00d4ff" stroke-width="0.7" stroke-opacity="0.6"/>
+        <line x1="100" y1="28" x2="100" y2="162" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.2"/>
+        <line x1="33" y1="95" x2="167" y2="95" stroke="#00d4ff" stroke-width="0.4" stroke-opacity="0.2"/>
+        <path d="M100,95 L100,28 A68,68 0 0,1 158,128 Z" fill="#00d4ff" fill-opacity="0.05" clip-path="url(#circleClip2)"/>
+        <line x1="100" y1="95" x2="158" y2="128" stroke="url(#scanGrad2)" stroke-width="1.5" filter="url(#glow2)"/>
+        <polyline points="30,95 50,95 58,95 64,76 70,114 76,62 83,128 89,89 95,105 100,95 105,95 112,95 118,83 124,107 130,95 150,95 170,95"
+          fill="none" stroke="url(#pulseGrad2)" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"
+          filter="url(#glow2)" clip-path="url(#circleClip2)"/>
+        <circle cx="100" cy="95" r="5" fill="#00d4ff" filter="url(#softGlow2)" fill-opacity="0.85"/>
+        <circle cx="100" cy="95" r="2.2" fill="white"/>
+        <circle cx="130" cy="62" r="3" fill="#f59e0b" filter="url(#glow2)"/>
+        <circle cx="148" cy="110" r="2" fill="#00d4ff" filter="url(#glow2)" fill-opacity="0.8"/>
+        <circle cx="65" cy="125" r="2" fill="#7c3aed" filter="url(#glow2)"/>
+        <circle cx="100" cy="95" r="72" fill="none" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.5"/>
+        <text x="100" y="182" font-family="'PingFang SC','Microsoft YaHei',sans-serif"
+          font-size="15" font-weight="700" letter-spacing="3" fill="white" text-anchor="middle">晨脉</text>
+        <text x="100" y="197" font-family="'SF Pro Display','Helvetica Neue','Arial',sans-serif"
+          font-size="8" font-weight="300" letter-spacing="4" fill="#00d4ff" fill-opacity="0.8" text-anchor="middle">AI×RADAR</text>
+      </svg>
+    </div>
   </div>
 
   <!-- 中国 AI -->
