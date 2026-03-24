@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>时尚零售 AI 日报 · {{ data.date }}</title>
+<style>
+:root {
+  --primary: #6b46c1;
+  --pink: #d53f8c;
+  --gold: #b7791f;
+  --bg: #fdf8ff;
+  --card: #ffffff;
+  --border: #e9d8fd;
+  --text: #2d3748;
+  --muted: #805ad5;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  padding: 24px 16px 48px;
+}
+.wrapper { max-width: 780px; margin: 0 auto; }
+
+.header {
+  background: linear-gradient(135deg, #44337a 0%, #6b46c1 50%, #d53f8c 100%);
+  border-radius: 16px;
+  padding: 32px 36px 28px;
+  margin-bottom: 28px;
+  color: white;
+}
+.header-meta { display: flex; gap: 10px; margin-bottom: 12px; }
+.badge {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+.header .date { font-size: 14px; opacity: 0.75; }
+.header .desc {
+  font-size: 13px; opacity: 0.6;
+  margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 10px;
+}
+
+.section { margin-bottom: 28px; }
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 20px;
+  background: #f9f0ff;
+  border-bottom: 3px solid var(--primary);
+  border-radius: 12px 12px 0 0;
+  font-size: 15px; font-weight: 700; color: var(--primary);
+}
+.section-header .count { margin-left: auto; font-size: 12px; opacity: 0.7; }
+
+.news-list {
+  background: var(--card);
+  border-radius: 0 0 12px 12px;
+  border: 1px solid var(--border);
+  border-top: none;
+  overflow: hidden;
+}
+.news-item {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0e6ff;
+  transition: background 0.15s;
+}
+.news-item:last-child { border-bottom: none; }
+.news-item:hover { background: #fdf5ff; }
+
+.item-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 12px;
+  margin-bottom: 6px;
+}
+.news-title { font-size: 15px; font-weight: 600; line-height: 1.5; }
+.news-title::before {
+  content: attr(data-index) ". ";
+  color: #9f7aea; font-weight: 700;
+}
+.cat-tag {
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 600;
+  background: #e9d8fd; color: var(--primary);
+  border-radius: 10px; padding: 2px 10px;
+  white-space: nowrap;
+}
+.news-summary { font-size: 14px; color: #4a5568; line-height: 1.75; margin-bottom: 6px; }
+.source-tag {
+  font-size: 11px; color: var(--muted);
+  background: #faf5ff; border-radius: 4px;
+  padding: 1px 8px; display: inline-block;
+}
+
+.footer {
+  text-align: center; font-size: 12px; color: #a0aec0;
+  margin-top: 32px; padding-top: 20px;
+  border-top: 1px solid #e9d8fd;
+}
+.footer a { color: var(--primary); text-decoration: none; }
+
+@media (max-width: 600px) {
+  .header { padding: 22px 20px 18px; }
+  .header h1 { font-size: 20px; }
+  .item-top { flex-direction: column; gap: 6px; }
+  .cat-tag { align-self: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <div class="header-meta">
+      <span class="badge">时尚零售</span>
+      <span class="badge">AI 应用专项</span>
+    </div>
+    <h1>时尚 & 零售 AI 应用动态</h1>
+    <div class="date">{{ data.date }} · {{ data.fashion_news|length }} 条精选</div>
+    <div class="desc">AI 设计 · 智能供应链 · 个性化推荐 · 虚拟试穿 · 趋势预测</div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span>👗</span>
+      今日时尚 AI 应用热点
+      <span class="count">{{ data.fashion_news|length }} 条</span>
+    </div>
+    <div class="news-list">
+      {% for item in data.fashion_news %}
+      <div class="news-item">
+        <div class="item-top">
+          <div class="news-title" data-index="{{ loop.index }}">{{ item.title }}</div>
+          {% if item.category %}
+          <span class="cat-tag">{{ item.category }}</span>
+          {% endif %}
+        </div>
+        <div class="news-summary">{{ item.summary }}</div>
+        {% if item.source %}
+        <span class="source-tag">{{ item.source }}</span>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="news-item"><div class="news-summary" style="color:#999">暂无数据</div></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="footer">
+    时尚AI专报由 Claude + Tavily 自动生成 ·
+    {% if github_url %}<a href="{{ github_url }}">查看往期</a> · {% endif %}
+    仅供参考
+  </div>
+
+</div>
+</body>
+</html>
