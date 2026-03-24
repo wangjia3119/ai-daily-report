@@ -47,7 +47,7 @@ def notify_daily(date_str: str, cn_count: int, us_count: int, fashion_count: int
     else:
         link_text = "\n\n（文件已保存至本地 output/daily/）"
 
-    title = f"📮 AI日报 {date_str} 已更新"
+    title = f"晨脉 AI×Radar · {date_str} 日报"
     content = (
         f"**今日速览**\n\n"
         f"- 🇨🇳 中国AI：{cn_count} 条\n"
@@ -68,7 +68,7 @@ def notify_weekly(week_range: str, total: int):
     else:
         link_text = "\n\n（文件已保存至本地 output/weekly/）"
 
-    title = f"📋 AI周报 {week_range} 已发布"
+    title = f"晨脉 AI×Radar · {week_range} 周报"
     content = (
         f"**本周精选 {total} 条 AI 行业动态**\n\n"
         f"涵盖中国AI、美国AI、时尚零售AI三大板块。"
