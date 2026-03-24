@@ -25,7 +25,7 @@ def git_push(commit_msg: str = "auto: 更新日报") -> bool:
         return False
 
     steps = [
-        (["git", "add", "output/", "data/"], "git add"),
+        (["git", "add", "docs/", "data/"], "git add"),
         (["git", "commit", "-m", commit_msg], "git commit"),
         (["git", "push"], "git push"),
     ]
