@@ -21,7 +21,7 @@ GITHUB_PAGES_URL = os.getenv("GITHUB_PAGES_URL", "").strip().rstrip("/")
 GIT_REPO_PATH = os.getenv("GIT_REPO_PATH", str(BASE_DIR))
 
 # ── 目录 ──────────────────────────────────────────
-OUTPUT_DIR   = BASE_DIR / "output"
+OUTPUT_DIR   = BASE_DIR / "docs"
 DAILY_DIR    = OUTPUT_DIR / "daily"
 WEEKLY_DIR   = OUTPUT_DIR / "weekly"
 DATA_DIR     = BASE_DIR / "data"
